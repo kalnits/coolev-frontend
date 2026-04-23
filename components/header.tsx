@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { clearAccountSession, readAccountSession } from "../lib/account-session";
 import type { AccountSession } from "../lib/types";
+import { Icon } from "./ui/icons";
 
 export function Header() {
   const [session, setSession] = useState<AccountSession | null>(null);
@@ -19,12 +20,26 @@ export function Header() {
         <span className="brand-mark">CoolEv</span> Dog Care
       </Link>
       <nav className="nav-row">
-        <Link href="/find">Find</Link>
-        <Link href="/become-a-sitter">Become a sitter</Link>
-        {session?.role === "admin" ? <Link href="/admin/sitter-applications">Admin approvals</Link> : null}
+        <Link className="nav-button" href="/find">
+          <Icon name="search" size={18} />
+          Find
+        </Link>
+        <Link className="nav-button" href="/become-a-sitter">
+          <Icon name="paw" size={18} />
+          Become a sitter
+        </Link>
+        {session?.role === "admin" ? (
+          <Link className="nav-button" href="/admin/sitter-applications">
+            <Icon name="shield" size={18} />
+            Admin
+          </Link>
+        ) : null}
         {session ? (
           <>
-            <Link href="/account">Account</Link>
+            <Link className="nav-button" href="/account">
+              <Icon name="user" size={18} />
+              Account
+            </Link>
             <button
               className="nav-button"
               onClick={() => {
@@ -33,11 +48,15 @@ export function Header() {
               }}
               type="button"
             >
+              <Icon name="log-out" size={18} />
               Log out
             </button>
           </>
         ) : (
-          <Link href="/auth">Login</Link>
+          <Link className="nav-button" href="/auth">
+            <Icon name="log-in" size={18} />
+            Login
+          </Link>
         )}
       </nav>
     </header>

@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { Icon } from "./icons";
 
 type SiteModalProps = {
   title: string;
@@ -19,7 +20,7 @@ export function SiteModal({ title, isOpen, onClose, children, actions }: SiteMod
         <div className="filter-modal-header">
           <h2>{title}</h2>
           <button aria-label={`Close ${title}`} className="filter-close" onClick={onClose} type="button">
-            Close
+            <Icon name="close" size={18} />
           </button>
         </div>
         <div className="modal-body">{children}</div>

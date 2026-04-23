@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { fetchOwnerDashboard, fetchSitterDashboard, normalizeAssetUrl, saveOwnerPet, uploadImage } from "../lib/api";
 import { clearAccountSession, readAccountSession } from "../lib/account-session";
 import type { AccountSession, OwnerDashboard, SitterDashboard } from "../lib/types";
+import { Icon } from "./ui/icons";
 import { SitterProfileSetup } from "./sitter-profile-setup";
 import { SiteModal } from "./ui/site-modal";
 
@@ -184,7 +185,7 @@ function OwnerPetsPanel({
           <div className="pet-choice-grid">
             {ownerDashboard.pets.map((pet) => (
               <article key={pet.id} className="pet-choice-card static">
-                {normalizeAssetUrl(pet.photo_url) ? <div className="pet-choice-photo" style={{ backgroundImage: `url(${normalizeAssetUrl(pet.photo_url)})` }} /> : <div className="pet-choice-photo placeholder">🐶</div>}
+                {normalizeAssetUrl(pet.photo_url) ? <div className="pet-choice-photo" style={{ backgroundImage: `url(${normalizeAssetUrl(pet.photo_url)})` }} /> : <div className="pet-choice-photo placeholder"><Icon name="dog" size={32} /></div>}
                 <strong>{pet.name}</strong>
                 <span>{pet.breed || "Breed not set"}</span>
                 <span>{pet.training_level || "Training level not set"}</span>

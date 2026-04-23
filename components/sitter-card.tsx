@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "./ui/icons";
 
 type SitterCardProps = {
   href?: string;
@@ -29,12 +30,18 @@ export function SitterCard({ sitter, href }: SitterCardProps) {
           <div>
             <p className="eyebrow">{sitter.city}</p>
             <h2>{sitter.displayName}</h2>
-            <p className="address-copy">{sitter.addressLabel}</p>
+            <p className="address-copy">
+              <Icon name="map-pin" size={14} />
+              {sitter.addressLabel}
+            </p>
           </div>
           <strong className="price-copy">{sitter.priceLabel}</strong>
         </div>
         <div className="meta-row">
-          <span>{sitter.ratingLabel}</span>
+          <span>
+            <Icon name="star" size={14} />
+            {sitter.ratingLabel}
+          </span>
           <span>{sitter.reviewCountLabel}</span>
         </div>
         <p className="card-description">{sitter.description}</p>
@@ -42,6 +49,7 @@ export function SitterCard({ sitter, href }: SitterCardProps) {
           <div className="badge-row">
             {sitter.badges.map((badge) => (
               <span key={badge} className="badge-chip">
+                <Icon name="check" size={12} />
                 {badge}
               </span>
             ))}

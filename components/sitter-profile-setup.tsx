@@ -6,6 +6,7 @@ import { useState } from "react";
 import { updateSitterProfile } from "../lib/api";
 import { clearAccountSession, writeSitterProfile } from "../lib/account-session";
 import type { AccountSession, AvailabilityRange, RegisterSitterResponse, ServiceDetailsPayload } from "../lib/types";
+import type { IconName } from "./ui/icons";
 import { AddressAutocompleteInput } from "./ui/address-autocomplete-input";
 import { MultiPickerCards, SinglePickerCards } from "./ui/picker-cards";
 
@@ -14,54 +15,56 @@ type SitterProfileSetupProps = {
   profile: RegisterSitterResponse["profile"];
 };
 
-const dogSizeOptions = [
-  { value: "xs", label: "Tiny", note: "0-7 kg", icon: "🐶" },
-  { value: "s", label: "Small", note: "8-15 kg", icon: "🐕" },
-  { value: "m", label: "Medium", note: "16-30 kg", icon: "🐕‍🦺" },
-  { value: "l", label: "Large", note: "31+ kg", icon: "🦴" }
+type PickerOption = { value: string; label: string; note?: string; icon?: IconName };
+
+const dogSizeOptions: PickerOption[] = [
+  { value: "xs", label: "Tiny", note: "0-7 kg", icon: "dog" },
+  { value: "s", label: "Small", note: "8-15 kg", icon: "dog" },
+  { value: "m", label: "Medium", note: "16-30 kg", icon: "dog" },
+  { value: "l", label: "Large", note: "31+ kg", icon: "bone" }
 ];
 
-const houseTypeOptions = [
-  { value: "apartment", label: "Apartment", note: "Indoor city home", icon: "🏢" },
-  { value: "house", label: "House", note: "More space", icon: "🏠" }
+const houseTypeOptions: PickerOption[] = [
+  { value: "apartment", label: "Apartment", note: "Indoor city home", icon: "building" },
+  { value: "house", label: "House", note: "More space", icon: "home" }
 ];
 
-const yesNoOptions = [
-  { value: "true", label: "Yes", icon: "✓" },
-  { value: "false", label: "No", icon: "–" }
+const yesNoOptions: PickerOption[] = [
+  { value: "true", label: "Yes", icon: "check" },
+  { value: "false", label: "No", icon: "close" }
 ];
 
-const boardingPolicyOptions = [
-  { value: "pickup", label: "Pickup", note: "Offer pickup", icon: "🚗" },
-  { value: "untrained", label: "Untrained", note: "Accept untrained", icon: "🎓" },
-  { value: "unneutered", label: "Unneutered", note: "Accept intact dogs", icon: "⚡" },
-  { value: "puppies", label: "Puppies", note: "Young dogs welcome", icon: "🍼" },
-  { value: "families", label: "Mixed families", note: "Host multiple homes", icon: "🏷️" }
+const boardingPolicyOptions: PickerOption[] = [
+  { value: "pickup", label: "Pickup", note: "Offer pickup", icon: "car" },
+  { value: "untrained", label: "Untrained", note: "Accept untrained", icon: "award" },
+  { value: "unneutered", label: "Unneutered", note: "Accept intact dogs", icon: "shield" },
+  { value: "puppies", label: "Puppies", note: "Young dogs welcome", icon: "sparkles" },
+  { value: "families", label: "Mixed families", note: "Host multiple homes", icon: "users" }
 ];
 
-const walkingPolicyOptions = [
-  { value: "pickup", label: "Pickup", note: "Collect the dog", icon: "🚗" },
-  { value: "untrained", label: "Untrained", note: "Accept untrained", icon: "🎓" },
-  { value: "unneutered", label: "Unneutered", note: "Accept intact dogs", icon: "⚡" },
-  { value: "puppies", label: "Puppies", note: "Young dogs welcome", icon: "🍼" },
-  { value: "group", label: "Group walks", note: "Can walk with others", icon: "👣" }
+const walkingPolicyOptions: PickerOption[] = [
+  { value: "pickup", label: "Pickup", note: "Collect the dog", icon: "car" },
+  { value: "untrained", label: "Untrained", note: "Accept untrained", icon: "award" },
+  { value: "unneutered", label: "Unneutered", note: "Accept intact dogs", icon: "shield" },
+  { value: "puppies", label: "Puppies", note: "Young dogs welcome", icon: "sparkles" },
+  { value: "group", label: "Group walks", note: "Can walk with others", icon: "footprints" }
 ];
 
-const weekdayOptions = [
-  { value: "0", label: "Sun", icon: "S" },
-  { value: "1", label: "Mon", icon: "M" },
-  { value: "2", label: "Tue", icon: "T" },
-  { value: "3", label: "Wed", icon: "W" },
-  { value: "4", label: "Thu", icon: "T" },
-  { value: "5", label: "Fri", icon: "F" },
-  { value: "6", label: "Sat", icon: "S" }
+const weekdayOptions: PickerOption[] = [
+  { value: "0", label: "Sun" },
+  { value: "1", label: "Mon" },
+  { value: "2", label: "Tue" },
+  { value: "3", label: "Wed" },
+  { value: "4", label: "Thu" },
+  { value: "5", label: "Fri" },
+  { value: "6", label: "Sat" }
 ];
 
-const daypartOptions = [
-  { value: "morning", label: "Morning", note: "06:00-12:00", icon: "🌅" },
-  { value: "afternoon", label: "Afternoon", note: "12:00-17:00", icon: "☀️" },
-  { value: "evening", label: "Evening", note: "17:00-22:00", icon: "🌇" },
-  { value: "night", label: "Night", note: "22:00-06:00", icon: "🌙" }
+const daypartOptions: PickerOption[] = [
+  { value: "morning", label: "Morning", note: "06:00-12:00", icon: "clock" },
+  { value: "afternoon", label: "Afternoon", note: "12:00-17:00", icon: "clock" },
+  { value: "evening", label: "Evening", note: "17:00-22:00", icon: "clock" },
+  { value: "night", label: "Night", note: "22:00-06:00", icon: "clock" }
 ];
 
 export function SitterProfileSetup({ session, profile }: SitterProfileSetupProps) {

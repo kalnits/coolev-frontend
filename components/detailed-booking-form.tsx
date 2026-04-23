@@ -6,6 +6,8 @@ import { useEffect, useMemo, useState } from "react";
 import { createBookingRequest, fetchOwnerDashboard, normalizeAssetUrl, saveOwnerPet, uploadImage } from "../lib/api";
 import { readAccountSession } from "../lib/account-session";
 import type { AvailabilityRange, OwnerDashboard } from "../lib/types";
+import type { IconName } from "./ui/icons";
+import { Icon } from "./ui/icons";
 import { SinglePickerCards } from "./ui/picker-cards";
 import { SiteModal } from "./ui/site-modal";
 import { AvailabilityCalendar } from "./ui/availability-calendar";
@@ -19,9 +21,9 @@ type DetailedBookingFormProps = {
   availabilityByService?: Record<string, AvailabilityRange[]>;
 };
 
-const serviceOptions = [
-  { value: "walking", label: "Walking", note: "Daily walk", icon: "🦮" },
-  { value: "boarding", label: "Boarding", note: "Overnight care", icon: "🏡" },
+const serviceOptions: { value: string; label: string; note: string; icon: IconName }[] = [
+  { value: "walking", label: "Walking", note: "Daily walk", icon: "footprints" },
+  { value: "boarding", label: "Boarding", note: "Overnight care", icon: "home" },
 ];
 
 export function DetailedBookingForm({
@@ -210,7 +212,7 @@ export function DetailedBookingForm({
                   onClick={() => setSelectedPetId(String(pet.id))}
                   type="button"
                 >
-                  {normalizeAssetUrl(pet.photo_url) ? <div className="pet-choice-photo" style={{ backgroundImage: `url(${normalizeAssetUrl(pet.photo_url)})` }} /> : <div className="pet-choice-photo placeholder">🐶</div>}
+                  {normalizeAssetUrl(pet.photo_url) ? <div className="pet-choice-photo" style={{ backgroundImage: `url(${normalizeAssetUrl(pet.photo_url)})` }} /> : <div className="pet-choice-photo placeholder"><Icon name="dog" size={32} /></div>}
                   <strong>{pet.name}</strong>
                   <span>{pet.breed || "Profile saved"}</span>
                 </button>

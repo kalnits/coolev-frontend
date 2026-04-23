@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import type { SearchFilterField } from "../lib/types";
+import type { IconName } from "./ui/icons";
 import { MultiPickerCards, SinglePickerCards } from "./ui/picker-cards";
 import { AddressAutocompleteInput } from "./ui/address-autocomplete-input";
 import { SiteModal } from "./ui/site-modal";
@@ -11,29 +12,29 @@ type ServiceType = "boarding" | "walking";
 
 const STORAGE_KEY = "coolev_search_draft";
 
-const serviceOptions = [
-  { value: "boarding", label: "Boarding", note: "Overnight care", icon: "🏡" },
-  { value: "walking", label: "Walking", note: "Daily walks", icon: "🦮" }
+const serviceOptions: { value: string; label: string; note: string; icon: IconName }[] = [
+  { value: "boarding", label: "Boarding", note: "Overnight care", icon: "home" },
+  { value: "walking", label: "Walking", note: "Daily walks", icon: "footprints" }
 ];
 
-const dogCountOptions = [
-  { value: "1", label: "1 dog", note: "Solo care", icon: "•" },
-  { value: "2", label: "2 dogs", note: "Pair", icon: "••" },
-  { value: "3", label: "3 dogs", note: "Small pack", icon: "•••" },
-  { value: "4", label: "4+", note: "Group", icon: "✦" }
+const dogCountOptions: { value: string; label: string; note: string; icon: IconName }[] = [
+  { value: "1", label: "1 dog", note: "Solo care", icon: "dog" },
+  { value: "2", label: "2 dogs", note: "Pair", icon: "users" },
+  { value: "3", label: "3 dogs", note: "Small pack", icon: "users" },
+  { value: "4", label: "4+", note: "Group", icon: "sparkles" }
 ];
 
-const dogSizeOptions = [
-  { value: "xs", label: "Tiny", note: "0-7 kg", icon: "🐶" },
-  { value: "s", label: "Small", note: "8-15 kg", icon: "🐕" },
-  { value: "m", label: "Medium", note: "16-30 kg", icon: "🐕‍🦺" },
-  { value: "l", label: "Large", note: "31+ kg", icon: "🦴" }
+const dogSizeOptions: { value: string; label: string; note: string; icon: IconName }[] = [
+  { value: "xs", label: "Tiny", note: "0-7 kg", icon: "dog" },
+  { value: "s", label: "Small", note: "8-15 kg", icon: "dog" },
+  { value: "m", label: "Medium", note: "16-30 kg", icon: "dog" },
+  { value: "l", label: "Large", note: "31+ kg", icon: "bone" }
 ];
 
-const compatibilityOptions = [
-  { value: "goodWithDogs", label: "Dogs", note: "Friendly with dogs", icon: "🐕" },
-  { value: "goodWithCats", label: "Cats", note: "Friendly with cats", icon: "🐈" },
-  { value: "goodWithKids", label: "Kids", note: "Friendly with kids", icon: "🧒" }
+const compatibilityOptions: { value: string; label: string; note: string; icon: IconName }[] = [
+  { value: "goodWithDogs", label: "Dogs", note: "Friendly with dogs", icon: "dog" },
+  { value: "goodWithCats", label: "Cats", note: "Friendly with cats", icon: "cat" },
+  { value: "goodWithKids", label: "Kids", note: "Friendly with kids", icon: "baby" }
 ];
 
 type SearchIntakeFormProps = {

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import type { SearchFilterField } from "../lib/types";
+import type { IconName } from "./ui/icons";
 import { SinglePickerCards } from "./ui/picker-cards";
 import { SiteModal } from "./ui/site-modal";
 
@@ -27,18 +28,18 @@ type SearchResultsFiltersProps = {
   maxDistanceKm?: string;
 };
 
-const houseOptions = [
-  { value: "", label: "Any home", note: "Show all", icon: "✨" },
-  { value: "apartment", label: "Apartment", note: "City home", icon: "🏢" },
-  { value: "house", label: "House", note: "More space", icon: "🏠" }
+const houseOptions: { value: string; label: string; note: string; icon: IconName }[] = [
+  { value: "", label: "Any home", note: "Show all", icon: "sparkles" },
+  { value: "apartment", label: "Apartment", note: "City home", icon: "building" },
+  { value: "house", label: "House", note: "More space", icon: "home" }
 ];
 
-const distanceOptions = [
-  { value: "", label: "Any distance", note: "Show all", icon: "∞" },
-  { value: "3", label: "Up to 3 km", note: "Closest first", icon: "📍" },
-  { value: "5", label: "Up to 5 km", note: "Short ride", icon: "🗺️" },
-  { value: "10", label: "Up to 10 km", note: "Wider area", icon: "🚗" },
-  { value: "25", label: "Up to 25 km", note: "Regional", icon: "🌍" }
+const distanceOptions: { value: string; label: string; note: string; icon: IconName }[] = [
+  { value: "", label: "Any distance", note: "Show all", icon: "globe" },
+  { value: "3", label: "Up to 3 km", note: "Closest first", icon: "map-pin" },
+  { value: "5", label: "Up to 5 km", note: "Short ride", icon: "map-pin" },
+  { value: "10", label: "Up to 10 km", note: "Wider area", icon: "car" },
+  { value: "25", label: "Up to 25 km", note: "Regional", icon: "globe" }
 ];
 
 export function SearchResultsFilters({
