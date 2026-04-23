@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Icon } from "./icons";
 
 type AddressValue = {
   address: string;
@@ -218,6 +219,7 @@ export function AddressAutocompleteInput({
               onClick={() => selectSuggestion(suggestion)}
               type="button"
             >
+              <Icon name="map-pin" size={16} />
               {suggestion.description}
             </button>
           ))}

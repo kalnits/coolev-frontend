@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import type { AvailabilityRange } from "../../lib/types";
+import { Icon } from "./icons";
 
 type AvailabilityCalendarProps = {
   ranges: AvailabilityRange[];
@@ -15,11 +17,15 @@ export function AvailabilityCalendar({
   toDate,
   startsAt,
 }: AvailabilityCalendarProps) {
-  const anchorDate = startsAt
+  const baseAnchor = startsAt
     ? new Date(startsAt)
     : fromDate
       ? new Date(fromDate)
       : new Date();
+  
+  const [monthOffset, setMonthOffset] = useState(0);
+  const anchorDate = new Date(baseAnchor.getFullYear(), baseAnchor.getMonth() + monthOffset, 1);
+  
   const monthStart = new Date(anchorDate.getFullYear(), anchorDate.getMonth(), 1);
   const gridStart = new Date(monthStart);
   gridStart.setDate(monthStart.getDate() - monthStart.getDay());
@@ -35,10 +41,23 @@ export function AvailabilityCalendar({
   return (
     <div className="availability-calendar">
       <div className="availability-calendar-head">
+        <button 
+          type="button" 
+          onClick={() => setMonthOffset(monthOffset - 1)}
+          aria-label="Previous month"
+        >
+          <Icon name="chevron-left" size={16} />
+        </button>
         <strong>
           {anchorDate.toLocaleString("en-US", { month: "long", year: "numeric" })}
         </strong>
-        <span className="status-copy">Green = available, red = unavailable</span>
+        <button 
+          type="button" 
+          onClick={() => setMonthOffset(monthOffset + 1)}
+          aria-label="Next month"
+        >
+          <Icon name="chevron-right" size={16} />
+        </button>
       </div>
       <div className="availability-grid week-labels">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((label) => (
